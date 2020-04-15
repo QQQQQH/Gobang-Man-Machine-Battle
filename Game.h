@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include <algorithm>
+#include <ctime>
 #include <string>
 #include <vector>
 

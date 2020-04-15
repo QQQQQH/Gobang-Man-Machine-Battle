@@ -15,7 +15,7 @@ int Game::evaluate(const Point &p) const {
         string chessLain = "";
         for (int j = -2; j <= 4; ++j) {
             if (!j) {
-                chessLain += "0";
+                chessLain += "1";
             }
             else {
                 int neighbor = get_neighbor(p, i, j);
