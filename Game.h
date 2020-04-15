@@ -32,6 +32,7 @@ class Game {
     bool set_chess(const Point &p, const int player);
     bool unset_chess(const Point &p);
     Point search_move();
+    void bot_first();
 
   private:
     int human,      // 玩家所执子

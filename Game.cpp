@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <random>
+
 // 判断游戏是否结束，若结束则返回获胜方编号，否则返回0
 int Game::game_over() const {
     for (int i = 0; i < GRID_NUM; ++i) {
@@ -46,7 +48,7 @@ bool Game::unset_chess(const Point &p) {
 
 
 // 返回p是否在棋盘内
-bool Game::in_board(const Point &p)const {
+bool Game::in_board(const Point &p) const {
     return p.x >= 0 && p.x < GRID_NUM && p.y >= 0 && p.y < GRID_NUM;
 }
 
@@ -61,4 +63,11 @@ vector <Point> Game::create_moves() const {
         }
     }
     return moves;
+}
+
+void Game::bot_first() {
+    default_random_engine e; //默认随机数引擎
+    e.seed((unsigned int)time(0));
+    uniform_int_distribution<unsigned> u(0, (GRID_NUM-1)/3);
+    set_chess(Point((GRID_NUM-1)/3+u(e), (GRID_NUM-1)/3+u(e)), bot);
 }
