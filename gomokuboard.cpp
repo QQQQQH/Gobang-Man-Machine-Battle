@@ -111,11 +111,19 @@ void GomokuBoard::mouseReleaseEvent(QMouseEvent *event) {
     int y = yPos/blockSize+(yPos%blockSize > blockSize/2);
 
     if (game->set_chess(Point(x, y), human)) {
+        int result = game->game_over();
+        if (result) {
+            emit gameOver(result);
+        }
         update();
         if (!game->set_chess(game->search_move(), 3-human)) {
             game->unset_chess(Point(x, y));
         }
         update();
+        result = game->game_over();
+        if (result) {
+            emit gameOver(result);
+        }
     }
 }
 

@@ -22,6 +22,9 @@ public:
     void reset();
     GameState getState() const { return state; }
 
+signals:
+    void gameOver(int winner);
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent* event) override;

@@ -19,6 +19,7 @@ public:
 
 public slots:
     void setupGame();
+    void showResult(int winner);
 
 private:
     Ui::MainWindow *ui;

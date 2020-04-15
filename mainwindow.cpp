@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     gomoku->setEnabled(false);
 
     connect(ui->pushButton, &QPushButton::clicked, this, &MainWindow::setupGame);
+    connect(ui->gomoku, &GomokuBoard::gameOver, this, &MainWindow::showResult);
 }
 
 MainWindow::~MainWindow()
@@ -41,5 +43,15 @@ void MainWindow::setupGame() {
         gomoku->setEnabled(false);
         ui->pushButton->setText(tr("Start"));
     }
+}
+
+void MainWindow::showResult(int winner) {
+    QMessageBox msgbox(QMessageBox::Information, "Info", "");
+    msgbox.setText((winner == 1 ? tr("Black") : tr("White"))+" win!");
+    msgbox.exec();
+
+    gomoku->reset();
+    gomoku->setEnabled(false);
+    ui->pushButton->setText(tr("Start"));
 }
 
