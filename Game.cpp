@@ -8,11 +8,13 @@ int Game::game_over() const {
         for (int j = 0; j < GRID_NUM; ++j) {
             const Point p(i, j);
             const int chessP = chessBoard[i][j];
-            for (int k = 1; k <= 4; ++k) {
-                // 依次判断右，右下，下，左下方是否五子连棋
-                if (chessP == get_neighbor(p, k, 1) && chessP == get_neighbor(p, k, 2) &&
-                    chessP == get_neighbor(p, k, 3) && chessP == get_neighbor(p, k, 4)) {
-                    return chessP;
+            if (chessP) {
+                for (int k = 1; k <= 4; ++k) {
+                    // 依次判断右，右下，下，左下方是否五子连棋
+                    if (chessP == get_neighbor(p, k, 1) && chessP == get_neighbor(p, k, 2) &&
+                        chessP == get_neighbor(p, k, 3) && chessP == get_neighbor(p, k, 4)) {
+                        return chessP;
+                    }
                 }
             }
         }

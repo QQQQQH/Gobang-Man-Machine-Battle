@@ -16,6 +16,8 @@ GomokuBoard::GomokuBoard(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setEnabled(false);
+
     updateParams();
 }
 
@@ -111,11 +113,14 @@ void GomokuBoard::mouseReleaseEvent(QMouseEvent *event) {
     int y = yPos/blockSize+(yPos%blockSize > blockSize/2);
 
     if (game->set_chess(Point(x, y), human)) {
+        update();
         int result = game->game_over();
         if (result) {
             emit gameOver(result);
+            reset();
+            return;
         }
-        update();
+
         if (!game->set_chess(game->search_move(), 3-human)) {
             game->unset_chess(Point(x, y));
         }
@@ -123,6 +128,8 @@ void GomokuBoard::mouseReleaseEvent(QMouseEvent *event) {
         result = game->game_over();
         if (result) {
             emit gameOver(result);
+            reset();
+            return;
         }
     }
 }
@@ -132,6 +139,7 @@ void GomokuBoard::start(int human0, int max_depth) {
     human = human0;
     game = new Game(human, max_depth);
     state = GAME;
+    setEnabled(true);
     if (human == 2) {
         game->bot_first();
         update();
@@ -139,9 +147,10 @@ void GomokuBoard::start(int human0, int max_depth) {
 }
 
 void GomokuBoard::reset() {
+    state = END;
     if (game) delete game;
     game = nullptr;
-    state = END;
+    setEnabled(false);
     update();
 }
 
