@@ -132,6 +132,7 @@ void GomokuBoard::start(int human0, int max_depth) {
 
 void GomokuBoard::reset() {
     if (game) delete game;
+    game = nullptr;
     state = END;
     update();
 }
