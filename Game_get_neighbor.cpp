@@ -24,5 +24,5 @@ int Game::get_neighbor(const Point &p, const int theta, const int rho)const {
         y = y + rho;
         break;
     }
-    return in_board(p) ? chessBoard[x][y] : OUT;
+    return in_board(Point(x, y)) ? chessBoard[x][y] : OUT;
 }
