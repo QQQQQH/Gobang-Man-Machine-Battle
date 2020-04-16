@@ -151,6 +151,7 @@ int Game::evaluate(const int nextPlayer) const {
     return value;
 }
 
+// 评估在p点落子以后，在p点附近的估值，越大对落子方越有利
 int Game::evaluate_priority(const Point &p) const {
     int value = 0, left = 4, right = 4;
     const int chessP = chessBoard[p.x][p.y];
