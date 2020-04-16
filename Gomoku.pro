@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Game.cpp \
+    Game_create_moves.cpp \
     Game_evaluate.cpp \
     Game_get_neighbor.cpp \
     Game_search_move.cpp \
