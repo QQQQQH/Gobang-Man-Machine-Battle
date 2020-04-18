@@ -130,7 +130,7 @@ int Game::evaluate(const Point &p) const {
     return value;
 }
 
-// 返回整个棋盘的估值之和（估值越大对于nextPlayer越有利）
+// 返回整个棋盘的估值之和（估值越大对于human越有利）
 int Game::evaluate(const int nextPlayer) const {
     int value = 0;
     for (int i = 0; i < GRID_NUM; ++i) {
@@ -148,7 +148,7 @@ int Game::evaluate(const int nextPlayer) const {
             }
         }
     }
-    return value;
+    return nextPlayer == human ? value : -value;
 }
 
 // 评估在p点落子以后，在p点附近的估值，越大对落子方越有利

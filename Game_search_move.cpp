@@ -70,7 +70,7 @@ int Game::min_value(const int depth, const Point &p0, const int alpha, int beta)
     }
     if (depth >= max_depth) {
         ++cnt2;
-        return -evaluate(bot);
+        return evaluate(bot);
     }
 
     int value = INF;
