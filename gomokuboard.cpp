@@ -51,6 +51,7 @@ void GomokuBoard::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
+    // 绘制棋盘
     painter.drawPixmap(leftBorder, topBorder,
                        blockCnt * blockSize + 2 * margin + 2 * padding,
                        blockCnt * blockSize + 2 * margin + 2 * padding,
@@ -61,6 +62,7 @@ void GomokuBoard::paintEvent(QPaintEvent *event) {
     painter.drawRect(leftBorder + margin, topBorder + margin,
                      blockCnt * blockSize + 2 * padding, blockCnt * blockSize + 2 * padding);
 
+    // 绘制网格
     for (int i = 0; i < blockCnt + 1; i++) {
         int horizontalPos = leftBorder + margin + padding + i * blockSize;
         int verticalPos = topBorder + margin + padding + i * blockSize;
@@ -70,17 +72,7 @@ void GomokuBoard::paintEvent(QPaintEvent *event) {
                          horizontalPos, bottomBorder - margin - padding - 1);
     }
 
-    //    for (std::vector<std::pair<int, int>>::iterator iter = pieces.begin()
-    //         ;iter != pieces.end();iter++) {
-    //           int x = (*iter).first;
-    //           int y = (*iter).second;
-    //           int pieceSize = blockSize;
-    //           painter.drawPixmap(leftBorder+margin+padding+(x+1)*blockSize-pieceSize/2,
-    //                              topBorder+margin+padding+(y+1)*blockSize-pieceSize/2,
-    //                              pieceSize,
-    //                              pieceSize,
-    //                              QPixmap("://image/white"));
-    //    }
+    // 绘制棋子
     if (state != GAME) {
         return;
     }
@@ -101,11 +93,15 @@ void GomokuBoard::paintEvent(QPaintEvent *event) {
     }
 }
 
+/*
+ * 计算距离鼠标点击位置最近的落子点，并在此落子
+ */
 void GomokuBoard::mouseReleaseEvent(QMouseEvent *event) {
     if (state != GAME) {
         return;
     }
 
+    // 边缘不能落子
     if (event->x() - leftBorder - margin - padding - blockSize / 2 <= 0 ||
         event->y() - topBorder - margin - padding - blockSize / 2 <= 0 ||
         event->x() - rightBorder + margin + padding + blockSize / 2 >= 0 ||
